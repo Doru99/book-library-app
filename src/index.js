@@ -1,6 +1,5 @@
 import ReactDom from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.css'
-import Menu from './components/menu'
-import './index.css'
+import 'bootswatch/dist/flatly/bootstrap.css'
+import App from './App';
 
-ReactDom.render(<Menu />, document.getElementById('root'))
+ReactDom.render(<App />, document.getElementById('root'))
