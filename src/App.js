@@ -6,10 +6,11 @@ import {
     Link ,
     Redirect
 } from 'react-router-dom';
-import 'bootswatch/dist/flatly/bootstrap.css'
-import Menu from './components/menu'
-import Register from './components/register'
-import Login from './components/login'
+import Axios from 'axios';
+import 'bootswatch/dist/flatly/bootstrap.css';
+import Menu from './components/menu';
+import Register from './components/register';
+import Login from './components/login';
 
 class App extends Component {
     render() {
@@ -19,7 +20,6 @@ class App extends Component {
                 <Router>
                     <Route exact path='/register' component = {Register} />
                     <Route exact path='/login' component = {Login} />
-                    <Route path="*" render={()=>{<h1>404</h1>}} />
                 </Router>
             </React.Fragment>
         );
