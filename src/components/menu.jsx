@@ -10,12 +10,8 @@ class Menu extends Component {
                             Book Library
                         </a>
                     </div>
-                    <ul className="nav navbar-nav">
-                        <li className="nav-item active"><a className="nav-link" href="#">Home</a></li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li className="nav-item"><a className="nav-link" href="/register">Sign Up</a></li>
-                        <li className="nav-item"><a className="nav-link" href="/login">Login</a></li>
+                    <ul className="nav navbar-nav mr-auto">
+                        <li className="nav-item active"><a className="nav-link" href="/dashboard">Home</a></li>
                     </ul>
                 </div>
             </nav>

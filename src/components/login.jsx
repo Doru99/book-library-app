@@ -37,9 +37,9 @@ class Login extends Component{
                         <form onSubmit={this.handleSubmit}>
                             <fieldset>
                                 <label for="email">Email:</label>
-                                <input type="email" className="form-control mb-3" id="email" placeholder="Enter email..."></input>
+                                <input type="email" onChange={this.onChange} className="form-control mb-3" id="email" placeholder="Enter email..."></input>
                                 <label for="password">Password:</label>
-                                <input type="password" className="form-control mb-3" id="password" placeholder="Enter password..."></input>
+                                <input type="password" onChange={this.onChange} className="form-control mb-3" id="password" placeholder="Enter password..."></input>
                             </fieldset>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
