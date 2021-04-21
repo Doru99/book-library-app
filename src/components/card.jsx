@@ -6,18 +6,22 @@ function Card(props) {
     var isOpen = false;
     function onTriggerLike(e) {
         onLike({title});
+        window.location.reload(false);
     }
 
     function onTriggerNeutral(e) {
         onNeutral({title});
+        window.location.reload(false);
     }
 
     function onTriggerDislike(e) {
         onDislike({title});
+        window.location.reload(false);
     }
 
     function onTriggerDelete(e) {
         onBookDelete({title});
+        window.location.reload(false);
     }
 
     function onSubmit(e) {
@@ -38,6 +42,13 @@ function Card(props) {
                     <h4 className="card-title">{title}</h4>
                     <p className="card-text">{desc}</p>
                     <div className="btn-group" role="group" aria-label="Basic example">
+                        <p className="lead mr-3">
+                        <span class="fa fa-star" style={{color : (rating2 >= '1') ? 'orange' : ''}}></span>
+                        <span class="fa fa-star" style={{color : (rating2 >= '2') ? 'orange' : ''}}></span>
+                        <span class="fa fa-star" style={{color : (rating2 >= '3') ? 'orange' : ''}}></span>
+                        <span class="fa fa-star" style={{color : (rating2 >= '4') ? 'orange' : ''}}></span>
+                        <span class="fa fa-star" style={{color : (rating2 === '5') ? 'orange' : ''}}></span>
+                        </p>
                         <button type="button" onClick={onTriggerLike} className={"btn btn-success" + ((rating1 === '1') ? "" : " disabled")}><i className="fa fa-thumbs-up"></i></button>
                         <button type="button" onClick={onTriggerNeutral} className={"btn btn-warning" + ((rating1 === '0') ? "" : " disabled")}><i className="fa fa-minus"></i></button>
                         <button type="button" onClick={onTriggerDislike} className={"btn btn-danger" + ((rating1 === '-1') ? "" : " disabled")}><i className="fa fa-thumbs-down"></i></button>
