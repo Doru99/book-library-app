@@ -9,7 +9,6 @@ const router = express.Router();
 const app = express();
 
 //Load models
-const User = require('./models/User');
 const Book = require('./models/Book');
 
 // Specify port
