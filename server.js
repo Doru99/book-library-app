@@ -48,13 +48,25 @@ const verifyJWT = (req, res, next) => {
 }
 
 //Routes
+app.put('/dashboard/rateBook', (req, res) => {
+    Book
+        .update(
+            {title: req.body.put.bookTitle},
+            {rating2: req.body.put.bookRating}
+        )
+        .then(book => res.json(book));
+})
+
+//Edit book
 app.put('/dashboard/editBook', (req, res) => {
     Book
         .updateOne(
-            {title: req.body.put.oldtitle},
+            {title: req.body.put.bookTitle},
             {
-                title: req.body.put.title,
-                description: req.body.put.description
+                title: req.body.put.bookNewTitle,
+                author: req.body.put.bookNewAuthor,
+                description: req.body.put.bookNewDesc,
+                category: req.body.put.bookNewCategory
             }
         )
         .then(book => res.json(book))
@@ -68,6 +80,7 @@ app.put('/dashboard/deleteBook', (req, res) => {
 
 app.put('/dashboard/likeBook', (req, res) => {
     //Update book rating1 + 1
+    console.log(req.body.put);
     Book
         .update(
             {title: req.body.put.title},
@@ -106,9 +119,11 @@ app.post('/dashboard/addBook', (req, res) => {
     //Save book
     const newBook = new Book({
         title: req.body.post.title,
+        author: req.body.post.author,
         rating1: '0',
         rating2: '0',
-        description: req.body.post.description
+        description: req.body.post.description,
+        category: req.body.post.category
     });
     newBook
         .save()

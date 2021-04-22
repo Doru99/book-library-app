@@ -6,6 +6,9 @@ const BookSchema = new Schema({
         type: String,
         required: true
     },
+    author: {
+        type: String
+    },
     //0-5
     rating1: {
         type: String,
@@ -20,7 +23,12 @@ const BookSchema = new Schema({
         default: '0',
     },
     description: {
-        type: String
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
     }
 })
 
