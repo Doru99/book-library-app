@@ -12,6 +12,18 @@ class Dashboard extends Component{
         search: null
     };
 
+    componentDidMount() {
+        this.callApi()
+          .then(res => this.setState({ response: res.express }))
+          .catch(err => console.log(err));
+    }
+
+    callApi = async () => {
+    const response = await fetch('http://localhost:5000/dashboard');
+    const body = await response.json();
+    return body;
+    };
+
     sortBookList = sortKey => {
         var books = this.state.response;
         if (this.state.order === 'ascending') {
@@ -22,9 +34,6 @@ class Dashboard extends Component{
             books.sort((a, b) => b[sortKey].localeCompare(a[sortKey]));
         }
         this.setState({response: books})
-        //descending
-        //const sorted = books.sort((a, b) => a.title > b.title);
-        //console.log(sorted);
     };
     
     onChange = e => {
@@ -125,29 +134,10 @@ class Dashboard extends Component{
     openModal = () => this.setState({ isOpenInsert: true });
     closeModal = () => this.setState({ isOpenInsert: false });
 
-    componentDidMount() {
-        this.callApi()
-          .then(res => this.setState({ response: res.express }))
-          .catch(err => console.log(err));
-    }
-
-    callApi = async () => {
-    const response = await fetch('http://localhost:5000/dashboard');
-    const body = await response.json();
-    return body;
-    };
-
-    filterByCategory = () => {
-        if (!this.state.category) {
-            return this.state.response;
-        }
-        return this.state.response.filter(book => book.category === this.state.category)
-    };
-    
     render() {
         const filterByTitle = (books) => {
             if (!this.state.search) {
-                return this.state.response;
+                return books;
             }
             return books.filter(book => book.title.toLowerCase().includes(this.state.search.toLowerCase()));
         }

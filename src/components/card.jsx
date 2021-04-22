@@ -39,7 +39,6 @@ function Card(props) {
     function onSubmit(e) {
         console.log(newTitle);
         onEdit(title, newTitle, newAuthor, newDesc, newCategory);
-        //window.location.reload(false);
     }
 
     function onTriggerStar(rating) {
@@ -48,7 +47,7 @@ function Card(props) {
     }
     return(
         <React.Fragment>
-            <div className="card text-white bg-primary mx-4 my-1 p-4" style={{maxWidth: '20rem', display:'inline-block'}}>
+            <div className="card text-white bg-primary mx-4 my-1 p-4" style={{maxWidth: '25rem', display:'inline-block', minHeight: '27rem', verticalAlign:'bottom'}}>
                 <div className="card-header">
                     <button type="button" onClick={onTriggerDelete} className="btn btn-danger p-1"><i className="fa fa-times" aria-hidden="true"></i></button>
                     <button type="button" onClick={() => setIsOpen(true)} className="btn btn-info p-1 mx-1"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
