@@ -7,7 +7,9 @@ class Dashboard extends Component{
     state = {
         isOpenInsert: false,
         response: [],
-        order: 'ascending'
+        order: 'ascending',
+        category: null,
+        search: null
     };
 
     sortBookList = sortKey => {
@@ -134,9 +136,28 @@ class Dashboard extends Component{
     const body = await response.json();
     return body;
     };
+
+    filterByCategory = () => {
+        if (!this.state.category) {
+            return this.state.response;
+        }
+        return this.state.response.filter(book => book.category === this.state.category)
+    };
     
     render() {
-        let bookList = this.state.response.map((book,i) =>
+        const filterByTitle = (books) => {
+            if (!this.state.search) {
+                return this.state.response;
+            }
+            return books.filter(book => book.title.toLowerCase().includes(this.state.search.toLowerCase()));
+        }
+        const filterByCategory = () => {
+            if (!this.state.category) {
+                return this.state.response;
+            }
+            return this.state.response.filter(book => book.category === this.state.category)
+        };
+        let bookList = filterByTitle(filterByCategory()).map((book,i) =>
         <Card
             key = {i}
             title = {book.title}
@@ -152,15 +173,32 @@ class Dashboard extends Component{
             onStar = {this.onStar}
             onEdit = {this.onBookEdit}
         />);
+        const categories = new Map([
+            ...this.state.response.map(book => [book.category])
+        ]);
+        let categoryButtons = (
+            [...categories].map((category) => 
+                <button onClick={() => {
+                    if (this.state.category === category[0]) {
+                        this.setState({category: null})
+                    } else {
+                        this.setState({category: category[0]})
+                    }
+                }} type="button" className="btn btn-secondary mr-1">{category}</button>)
+        );
         return (
         <React.Fragment>
             <div className="jumbotron">
                 <h1 className="display-4">Dashboard</h1>
                 <hr className="my-3"/>
                 <p className="lead">
-                <button type="button" className="btn btn-success mr-1" onClick={this.openModal}>Add Book</button>
-                <button type="button" onClick={() => this.sortBookList('title')} className="btn btn-secondary mr-1">Title<i className="fa fa-sort-alpha-asc mx-1" aria-hidden="true"></i></button>
-                <button type="button" onClick={() => this.sortBookList('author')} className="btn btn-secondary mr-1">Author<i className="fa fa-sort-alpha-asc mx-1" aria-hidden="true"></i></button>
+                    <button type="button" className="btn btn-success mr-1" onClick={this.openModal}>Add Book</button>
+                    <button type="button" onClick={() => this.sortBookList('title')} className="btn btn-info mr-1">Title<i className="fa fa-sort-alpha-asc mx-1" aria-hidden="true"></i></button>
+                    <button type="button" onClick={() => this.sortBookList('author')} className="btn btn-info mr-1">Author<i className="fa fa-sort-alpha-asc mx-1" aria-hidden="true"></i></button>
+                    {categoryButtons}
+                    <form className="form-inline" style={{display: 'inline-block', float:'right'}}>
+                        <input onChange={(e) => {this.setState({search: e.target.value}); console.log(e.target.value);}} className="form-control mr-sm-2" type="text" placeholder="Search"/>
+                    </form>
                 </p>
             </div>
             {bookList}
